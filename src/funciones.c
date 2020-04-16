@@ -7,71 +7,42 @@ float numero(void){
 	scanf("%f", &conseguirNumero);
 	return conseguirNumero;
 }
-
 float suma(float num, float num1)
 {
 	float resultadoS;
 	resultadoS = num + num1;
 	return resultadoS;
-
 }
-
-
 float resta(float num, float num1)
 {
 	float resultadoR;
-
 	resultadoR = num-num1;
-
 	return resultadoR;
-
 }
-
 float multiplicacion(float num, float num1)
 {
 	float resultadoM;
 	resultadoM = num * num1;
 	return resultadoM;
-
 }
-
-float division(float num, float num1)
+float validacionDivision (float num, float num1)
 {
-	float resultadoD;
-	resultadoD= num / num1;
-	return resultadoD;
-
-}
-/*
-int funcionFactorial (int numero)
-{
-  int factorial = numero;
-  int factor = 1;
-
-
-  if (numero == 0)
+    char valor;
+    float resultado;
+  if(num1!=0)
   {
-    return 1;
-
-  }
-
-  for (factorial = numero; factorial > 0; factorial--)
-    {
-      factor = factor * factorial;
+      resultado = num / num1;
+	return resultado;
+    }else{
+		valor = 'E';
+		return valor;
     }
-
-  return (factor);
-}*/
-
-
+}
 int validacionFactorial (float numero)
 {
-  float resultado;
+  int resultado;
   int factorial;
-
-
   resultado = numero - (int) numero;
-
   if (resultado == 0 && numero>=0)
     {
            if (numero == 0)
@@ -87,8 +58,3 @@ int validacionFactorial (float numero)
       return -1;
     }
 }
-
-
-
-
-
