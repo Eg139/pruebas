@@ -1,9 +1,3 @@
-/*
- * funciones.h
- *
- *  Created on: 7 abr. 2020
- *      Author: Usuario
- */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,5 +6,5 @@ float suma(float num,float num1);
 float resta(float num,float num1);
 float multiplicacion(float num,float num1);
 float division(float num,float num1);
-int factorialA(float num);
-
+//int funcionFactorial (int numero);
+int validacionFactorial(float numero);

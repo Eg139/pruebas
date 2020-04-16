@@ -1,9 +1,3 @@
-/*
- * funciones.c
- *
- *  Created on: 7 abr. 2020
- *      Author: Usuario
- */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -48,19 +42,51 @@ float division(float num, float num1)
 	return resultadoD;
 
 }
-int factorialA(float num)
+/*
+int funcionFactorial (int numero)
 {
-	int resultadoA;
+  int factorial = numero;
+  int factor = 1;
 
-	if (num == 0)
-	{
-		resultadoA = 1;
-	}else{
-		resultadoA= num* factorialA(num - 1);
-	}
-	return resultadoA;
+
+  if (numero == 0)
+  {
+    return 1;
+
+  }
+
+  for (factorial = numero; factorial > 0; factorial--)
+    {
+      factor = factor * factorial;
+    }
+
+  return (factor);
+}*/
+
+
+int validacionFactorial (float numero)
+{
+  float resultado;
+  int factorial;
+
+
+  resultado = numero - (int) numero;
+
+  if (resultado == 0 && numero>=0)
+    {
+           if (numero == 0)
+    	{
+    		factorial = 1;
+    	}else{
+    		factorial= numero* validacionFactorial(numero - 1);
+    	}
+    	return factorial;
+    }
+  else
+    {
+      return -1;
+    }
 }
-
 
 
 
