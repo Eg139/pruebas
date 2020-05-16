@@ -45,21 +45,16 @@ int GetOption(char message[])
     return num;
 }
 
-int GetInt(char message[],int tam)
+int GetInt(char message[])
 {
     int num;
-    char auxNum[11];
     printf("%s",message);
-    fflush(stdin);
-    gets(auxNum);
-    while(Validate_IntID(auxNum)!=1 || auxNum[0]=='\0')
+    scanf("%d", &num);
+    while(num > 1001 || num < 0)
     {
-        printf("Ingresa un numero valido: ");
-        fflush(stdin);
-        gets(auxNum);
+    printf("%s",message);
+    scanf("%d", &num);
     }
-    num=atoi(auxNum);
-    return num;
 }
 
 float GetFloat(char message[])
@@ -67,6 +62,11 @@ float GetFloat(char message[])
     float salary;
     printf("%s",message);
     scanf("%f",&salary);
+    while(salary < 0)
+        {
+            printf("%s",message);
+            scanf("%f",&salary);
+        }
     return salary;
 }
 
@@ -85,3 +85,7 @@ char GetChar(char message[])
     return letter;
 }
 
+int GenerarId(int id,int cont)
+{
+    return id+cont;
+}

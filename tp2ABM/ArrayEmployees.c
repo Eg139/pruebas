@@ -1,6 +1,6 @@
-#include <stdio.h>
+
 #include "ArrayEmployees.h"
-#include <string.h>
+
 
 int menuUser(char texto[])
 {
@@ -9,6 +9,167 @@ int menuUser(char texto[])
     scanf("%d", &opcion);
 
     return opcion;
+}
+
+
+void menu()
+{
+    int opcion = 0;
+    int cont = 0;
+    int employeeFlag =0;
+    eEmployee listEmployees[T];
+
+
+
+    char option;
+    option= GetChar("Desea hardcodear el codigo?\nS para si, N para no :");
+    while(option != 'S' && option !='N')
+        {
+            option = GetChar("Desea hardcodear el codigo?\nS para si, N para no :");
+        }
+        if(option == 's' || option =='S')
+        {
+            initEmployees(listEmployees, T);
+            hardCodear(listEmployees);
+            cont = 5;
+            printf("ATENCION!!! Aun debe agregar un empleado para poder usar el resto del menu!!!!\n");
+            system("pause");
+            system("cls");
+        }
+        else
+        {
+            initEmployees(listEmployees, T);
+            printf("Iniciara con el listado de empleados vacio\n");
+            system("pause");
+            system("cls");
+        }
+
+    do{
+    opcion = menuUser("1. INGRESAR EMPLEADO\n2. MOSTRAR EMPLEADO\n3. INFORMAR\n4. ELIMINAR EMPLEADOS\n5. MODIFICAR EMPLEADOS\n6.SALIR\nELIJA UNA OPCION: ");
+    system("cls");
+    while(opcion > 6 || opcion < 1)
+    {
+        printf("OPCION INCORRECTA, REINGRESE UNA OPCION VALIDA\n");
+        opcion = menuUser("1. INGRESAR EMPLEADO\n2. MOSTRAR EMPLEADO\n3. INFORMAR\n4. ELIMINAR EMPLEADOS\n5. MODIFICAR EMPLEADOS\n6.SALIR\nELIJA UNA OPCION: ");
+    }
+    switch(opcion)
+    {
+        case 1:
+            cont++;
+            if(addEmployees(listEmployees, T,cont) == 0)
+            {
+             printf("\nEMPLEADO INGRESADO CON EXITO\n");
+             employeeFlag = 1;
+             system("pause");
+             system("cls");
+            }else{
+                printf("ERROR!!!!\n NO HAY ESPACIO PARA AGREGAR EMPLEADOS");
+                system("pause");
+                system("cls");
+            }
+
+        break;
+
+        case 2:
+            if(employeeFlag == 1){
+            printf("LISTA DE EMPLEADOS!!!!!\n");
+            //fflush(stdin);
+            if(printEmployees(listEmployees, T)==0)
+                {
+                printf("\nEMPLEADOS MOSTRADOS CON EXITO\n");
+                system("pause");
+                system("cls");
+            }else{
+                printf("ERROR!!!!\n");
+                system("pause");
+                system("cls");
+            }
+            }
+            else{
+                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
+            }
+        break;
+        case 3:
+            if(employeeFlag == 1){
+                fflush(stdin);
+                opcion = menuUser("QUE DESEA INFORMAR:\n1. Listado de los empleados ordenados alfabeticamente por Apellido y Sector\n2. Total y promedio de los salarios, y cuantos empleados superan el salario promedio\nElija una opcion: ");
+                while(opcion > 2 || opcion < 1)
+                {
+                printf("OPCION INCORRECTA, REINGRESE UNA OPCION VALIDA\n");
+                opcion = menuUser("1. Listado de los empleados ordenados alfabeticamente por Apellido y Sector\n2. Total y promedio de los salarios, y cuantos empleados superan el salario promedio\nElija una opcion:");
+                }
+                switch(opcion)
+                {
+                    case 1:
+                        if(sortEmployees(listEmployees, T)== 0)
+                        {
+                            printf("\nLos empleados se ordenaron con exito\n");
+                            printEmployees(listEmployees, T);
+                        }
+                        else
+                        {
+                            printf("\nLos empleados no pudieron ordenarse\n");
+                        }
+
+                    break;
+
+                    case 2:
+
+                        if(showSalary(listEmployees, T)==0)
+                        {
+                            printf("\nSe pudo mostrar el salario\n");
+                        }else
+                        {
+                            printf("\ERROR! No se pudo mostrar el salario");
+                        }
+                    break;
+                }
+            }
+                else{
+                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
+            }
+                system("pause");
+                system("cls");
+        break;
+        case 4:
+            if(employeeFlag == 1){
+                if(removeEmployee(listEmployees, T)==0)
+                {
+                    printf("El empleado se elimino con exito\n");
+                }else
+                {
+                  printf("Error! No se pudo eliminar empleado, El Id estaba libre\n");
+                }
+            }else{
+                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
+            }
+            system("pause");
+            system("cls");
+            break;
+        case 5:
+            if(employeeFlag == 1)
+                {
+            printEmployees(listEmployees, T);
+            if(modifyEmployee(listEmployees, T)==0)
+            {
+                printf("El empleado se modifico con exito\n");
+            }
+            else
+            {
+                printf("No modifico ningun dato\n");
+            }
+            }else{
+                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
+            }
+            system("pause");
+            system("cls");
+            break;
+        case 6:
+        break;
+
+    }
+    }while(opcion != 6);
+
 }
 
 
@@ -51,7 +212,7 @@ int modifyEmployee(eEmployee listado[], int len)
             break;
 
             case 4: //sector
-            listado[i].sector = GetInt("Reingrese el sector del empleado: ", len);
+            listado[i].sector = GetInt("Reingrese el sector del empleado: ");
             index = 0;
             break;
 
@@ -133,7 +294,7 @@ int searchFree(eEmployee listado[], int len)
     return indice;
 }
 
-int addEmployees(eEmployee listado[], int len)
+int addEmployees(eEmployee listado[], int len, int cont)
 {
     int indice;
     int index = -1;
@@ -141,7 +302,7 @@ int addEmployees(eEmployee listado[], int len)
     indice = searchFree(listado, len);
     if(indice != -1)
     {
-        listado[indice] = createEmployee(indice+1);
+        listado[indice] = createEmployee(cont);
         index = 0;
     }
     return index;
@@ -180,17 +341,18 @@ eEmployee createEmployee(int id)
 
     miEmployee.id = id;
 
-    GetString("Ingrese EL nombre: ", miEmployee.name, id);
+    GetString("Ingrese el Nombre: ", miEmployee.name, id);
     GetString("Ingrese el Apellido: ", miEmployee.lastName, id);
     miEmployee.salary = GetFloat("Ingrese el Salario: ");
-    miEmployee.sector = GetInt("Ingrese el sector: ", id);
+    miEmployee.sector = GetInt("Ingrese el sector del empleado entre 1 y 1000: ");
     return miEmployee;
 }
 
 
 
-void sortEmployees(eEmployee listado[], int len)
+int sortEmployees(eEmployee listado[], int len)
 {
+    int index = -1;
     int i;
     int j;
     eEmployee auxEmployee;
@@ -219,10 +381,13 @@ void sortEmployees(eEmployee listado[], int len)
             }
         }
     }
+    index = 0;
+    return index;
 }
-void showSalary(eEmployee listado[], int len)
+int showSalary(eEmployee listado[], int len)
 {
     int i;
+    int index = -1;
     float acumulador = 0;
     int contador = 0;
     float promedio;
@@ -236,6 +401,8 @@ void showSalary(eEmployee listado[], int len)
     }
     promedio = acumulador/contador;
 
+    index = 0;
+
     printf("   ID   \tNOMBRE      APELLIDO     SALARIO   SECTOR\n");
         for(i = 0; i< len; i++)
     {
@@ -247,11 +414,13 @@ void showSalary(eEmployee listado[], int len)
 
     printf("\nEl TOTAL DE LOS SALARIOS ES: %.2f Y EL PROMEDIO DE LOS MISMOS ES: %.2f \n", acumulador,promedio);
 
+    return index;
+
 }
 
 int findEmployeeById(char message[],eEmployee listado[], int len)
 {
     int auxGetId;
-    auxGetId = GetInt("\nIngrese el ID del empleado: ",len);
+    auxGetId = GetInt("\nIngrese el ID del empleado: ");
     return auxGetId;
 }

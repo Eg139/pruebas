@@ -26,7 +26,7 @@ int GetOption(char[]);
  * \return int Return validated number.
  *
  */
-int GetInt(char[],int);
+int GetInt(char[]);
 
 
 /** \brief Ask the user to enter the salary.
@@ -46,3 +46,4 @@ float GetFloat(char[]);
  */
 char GetChar(char message[]);
 
+int GenerarId(int id,int cont);
