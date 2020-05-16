@@ -2,7 +2,7 @@
 #include "ArrayEmployees.h"
 #include <string.h>
 
-int menuUsuario(char texto[])
+int menuUser(char texto[])
 {
     int opcion;
     printf("%s", texto);
@@ -12,73 +12,75 @@ int menuUsuario(char texto[])
 }
 
 
-void modificarEmployee(eEmployee listado[], int len)
+int modifyEmployee(eEmployee listado[], int len)
 {
-    int posicion;
     int id;
+    int index = -1;
     int eleccion = 0;
     int i;
 
-    printf("\nINGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR ");
-    scanf("%d", &id);
-    do{
-            printf("MODIFICAR: \n");
-            eleccion = menuUsuario("1. NOMBRE\n2. APELLIDO\n3.SALARIO\n4. SECTOR\n5. SALIR\nElija una opcion: ");
+    id = findEmployeeById("\nIngrese el Id del empleado a modificar: ", listado, len);
 
-            for(i = 0; i< len; i++)
-              {
-              if(id == listado[i].id)
-                {
-                   posicion = i;
-                   break;
-                }
-              }
-     switch(eleccion)
-      {
-          case 1://name
-                    printf("REINGRESE EL NOMBRE: ");
-                    fflush(stdin);
-                    gets(listado[posicion].name);
+    for(i = 0; i< len; i++)
+    {
+        if((listado[i].id == id) &&(listado[i].isEmpty == OCUPADO))
+        {
+            fflush(stdin);
+            eleccion = menuUser("1. NOMBRE\n2. APELLIDO\n3.SALARIO\n4. SECTOR\n5. SALIR\nElija una opcion: ");
+            while(eleccion >5 || eleccion < 1)
+            {
+                printf("Opcion incorrecta, Ingrese una opcion valida\n");
+                fflush(stdin);
+                eleccion = menuUser("1. NOMBRE\n2. APELLIDO\n3.SALARIO\n4. SECTOR\n5. SALIR\nElija una opcion: ");
+            }
+            switch(eleccion)
+            {
+            case 1://name
+            GetString("Reingrese el nombre: ", listado[i].name, len);
+            index = 0;
             break;
 
-          case 2://lastName
-                    printf("REINGRESE EL APELLIDO: ");
-                    fflush(stdin);
-                    gets(listado[posicion].lastName);
+            case 2://lastName
+            GetString("Reingrese el apellido: ", listado[i].lastName, len);
+            index = 0;
             break;
 
-          case 3:
-                    printf("REINGRESE EL SALARIO: ");
-                    scanf("%f", &listado[posicion].salary);
+            case 3:
+            listado[i].salary = GetFloat("Reingrese el salario del empleado: ");
+            index = 0;
             break;
 
-          case 4: //sector
-                    printf("REINGRESE EL SECTOR: ");
-                    scanf("%d", &listado[posicion].sector);
+            case 4: //sector
+            listado[i].sector = GetInt("Reingrese el sector del empleado: ", len);
+            index = 0;
             break;
 
+            case 5:
+            break;}
 
-          case 5:
-            break;
-      }
-    }while(eleccion != 5);
+        }
+        }
+        return index;
 
+    }
 
-}
-void eliminarEmployee(eEmployee listado[], int len)
+int removeEmployee(eEmployee listado[], int len)
 {
     int id;
     int i;
-    printf("INGRESE EL ID DEL EMPLEADO QUE DESEA ELIMINAR: ");
-    scanf("%d", &id);
+    int index = -1;
+    id = findEmployeeById("\nIngrese el Id del empleado que desea eliminar: ", listado, len);
     for(i = 0; i<len; i++)
     {
-        if(id == listado[i].id)
+        if(id == listado[i].id && listado[i].isEmpty == OCUPADO)
         {
             listado[i].isEmpty = LIBRE;
+
+            index = 0;
             break;
         }
     }
+    return index;
 }
 
 
@@ -86,7 +88,7 @@ void eliminarEmployee(eEmployee listado[], int len)
 void hardCodear(eEmployee listado[])
 {
     int ids[5] = {1,2,3,4,5};
-    int salary[5] = {9000.50,4841.64,10000.00,98410.15,5800.1};
+    float salary[5] = {9000.50,54841.64,10000.00,98410.15,5800.1};
     int sector[5] = {1,2,5,4,3};
     char name[5][20] ={"Pepe","lucia","ricardo","alex","fatiga"};
     char lastName[5][20] = {"Argento", "Gutierrez","Cosentino","Aprea","Argento"};
@@ -105,15 +107,18 @@ void hardCodear(eEmployee listado[])
 }
 
 
-void inicializarEmployees(eEmployee listado[], int len)
+int initEmployees(eEmployee listado[], int len)
 {
    int i;
+   int index = -1;
     for(i = 0; i < len; i++)
     {
         listado[i].isEmpty = LIBRE;
+        index = 0;
     }
+    return index;
 }
-int buscarLibre(eEmployee listado[], int len)
+int searchFree(eEmployee listado[], int len)
 {
     int i;
     int indice = -1;
@@ -128,64 +133,63 @@ int buscarLibre(eEmployee listado[], int len)
     return indice;
 }
 
-void cargarUnEmployees(eEmployee listado[], int len)
+int addEmployees(eEmployee listado[], int len)
 {
     int indice;
+    int index = -1;
     //int i;
-    indice = buscarLibre(listado, len);
+    indice = searchFree(listado, len);
     if(indice != -1)
     {
-        listado[indice] = crearUnEmployee(indice+1);
+        listado[indice] = createEmployee(indice+1);
+        index = 0;
     }
+    return index;
 
 }
-void mostrarTodosLosEmployees(eEmployee listado[], int len)
+int printEmployees(eEmployee listado[], int len)
 {
     int i;
+    int index = -1;
     printf("   ID   \tNOMBRE      APELLIDO     SALARIO   SECTOR\n");
     for(i = 0; i < len; i++)
     {
         if(listado[i].isEmpty == OCUPADO)
         {
-            mostrarUnEmployee(listado[i]);
+            printEmployee(listado[i]);
+            index = 0;
         }
     }
+    return index;
 }
 
-void mostrarUnEmployee(eEmployee miEmployee)
+void printEmployee(eEmployee miEmployee)
 {
-
        printf("%4d %15s %15s \t%8.2f %4d\n",miEmployee.id,
                                                 miEmployee.name,
                                                 miEmployee.lastName,
                                                 miEmployee.salary,
                                                 miEmployee.sector);
 }
-eEmployee crearUnEmployee(int id)
+
+eEmployee createEmployee(int id)
 {
     eEmployee miEmployee;
 
     miEmployee.isEmpty = OCUPADO;
 
     miEmployee.id = id;
-    printf("INGRESE EL NOMBRE: ");
-    fflush(stdin);
-    gets(miEmployee.name);
-    printf("INGRESE EL APELLIDO: ");
-    fflush(stdin);
-    gets(miEmployee.lastName);
-    printf("INGRESE EL SALARIO: ");
-    scanf("%f", &miEmployee.salary);
-    printf("INGRESE EL SECTOR: ");
-    scanf("%d", &miEmployee.sector);
 
-
+    GetString("Ingrese EL nombre: ", miEmployee.name, id);
+    GetString("Ingrese el Apellido: ", miEmployee.lastName, id);
+    miEmployee.salary = GetFloat("Ingrese el Salario: ");
+    miEmployee.sector = GetInt("Ingrese el sector: ", id);
     return miEmployee;
 }
 
 
 
-void ordenarEmployeesLastNameSector(eEmployee listado[], int len)
+void sortEmployees(eEmployee listado[], int len)
 {
     int i;
     int j;
@@ -216,10 +220,10 @@ void ordenarEmployeesLastNameSector(eEmployee listado[], int len)
         }
     }
 }
-void mostrarSalarios(eEmployee listado[], int len)
+void showSalary(eEmployee listado[], int len)
 {
     int i;
-    int acumulador = 0;
+    float acumulador = 0;
     int contador = 0;
     float promedio;
     for(i = 0; i<len; i++)
@@ -230,7 +234,24 @@ void mostrarSalarios(eEmployee listado[], int len)
                    contador++;
         }
     }
-    promedio = (float)acumulador/contador;
+    promedio = acumulador/contador;
 
-    printf("El TOTAL DE LOS SALARIOS ES: %d Y EL PROMEDIO DE LOS MISMOS ES: %.2f", acumulador,promedio);
+    printf("   ID   \tNOMBRE      APELLIDO     SALARIO   SECTOR\n");
+        for(i = 0; i< len; i++)
+    {
+        if(listado[i].salary > promedio && listado[i].isEmpty == OCUPADO)
+        {
+            printEmployee(listado[i]);
+        }
+    }
+
+    printf("\nEl TOTAL DE LOS SALARIOS ES: %.2f Y EL PROMEDIO DE LOS MISMOS ES: %.2f \n", acumulador,promedio);
+
+}
+
+int findEmployeeById(char message[],eEmployee listado[], int len)
+{
+    int auxGetId;
+    auxGetId = GetInt("\nIngrese el ID del empleado: ",len);
+    return auxGetId;
 }

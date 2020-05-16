@@ -1,11 +1,13 @@
 #define LIBRE 0
 #define OCUPADO 1
+#include "Gets.h"
+#include "Validate.h"
 
 typedef struct
 {
     int id;
-    char name[20];
-    char lastName[20];
+    char name[51];
+    char lastName[51];
     float salary;
     int sector;
     int isEmpty;
@@ -13,15 +15,16 @@ typedef struct
 
 
 
-void modificarEmployee(eEmployee listado[], int len);
-void eliminarEmployee(eEmployee listado[], int len);
-int buscarLibre(eEmployee listado[], int len);
-void inicializarEmployees(eEmployee listado[], int len);
-int menuUsuario(char texto[]);
-void cargarUnEmployees(eEmployee listado[], int len);
-void mostrarTodosLosEmployees(eEmployee listado[], int len);
-void mostrarUnEmployee(eEmployee miEmployee);
-eEmployee crearUnEmployee();
-void ordenarEmployeesLastNameSector(eEmployee listado[], int len);
+int modifyEmployee(eEmployee listado[], int len);
+int removeEmployee(eEmployee listado[], int len);
+int searchFree(eEmployee listado[], int len);
+int initEmployees(eEmployee listado[], int len);
+int menuUser(char texto[]);
+int addEmployees(eEmployee listado[], int len);
+int printEmployees(eEmployee listado[], int len);
+void printEmployee(eEmployee miEmployee);
+eEmployee createEmployee();
+void sortEmployees(eEmployee listado[], int len);
 void hardCodear(eEmployee listado[]);
-void mostrarSalarios(eEmployee listado[], int len);
+void showSalary(eEmployee listado[], int len);
+int findEmployeeById(char message[],eEmployee listado[], int len);

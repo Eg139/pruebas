@@ -1,13 +1,44 @@
 # depslib dependency file v1.0
-1589562668 source:c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\main.c
+1589603148 source:c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\main.c
 	<stdio.h>
 	<stdlib.h>
 	"ArrayEmployees.h"
 
-1589561916 c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\arrayemployees.h
+1589603198 c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\arrayemployees.h
+	"Gets.h"
+	"Validate.h"
 
-1589562485 source:c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\arrayemployees.c
+1589603629 source:c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\arrayemployees.c
 	<stdio.h>
 	"ArrayEmployees.h"
 	<string.h>
+
+1589257174 source:c:\users\usuario\documents\primerparcial\gets.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Gets.h"
+	"Validate.h"
+
+1589257183 c:\users\usuario\documents\primerparcial\gets.h
+
+1588816230 c:\users\usuario\documents\primerparcial\validate.h
+
+1589564909 source:c:\users\usuario\documents\primerparcial\validate.c
+	"Validate.h"
+
+1589586968 c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\gets.h
+
+1588816230 c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\validate.h
+
+1589564909 source:c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\validate.c
+	"Validate.h"
+
+1589586985 source:c:\users\usuario\documents\ejercicio clase\tp2\tp2abm\gets.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Gets.h"
+	<ctype.h>
+	"Validate.h"
 
