@@ -2,7 +2,7 @@
 #define OCUPADO 1
 #include "Gets.h"
 #include "Validate.h"
-#define T 10
+#define T 1000
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
