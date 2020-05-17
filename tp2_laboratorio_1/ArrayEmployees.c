@@ -216,7 +216,7 @@ int removeEmployee(eEmployee listado[], int len)
     {
         if(id == listado[i].id && listado[i].isEmpty == OCUPADO)
         {
-            listado[i].isEmpty = LIBRE;
+            listado[i].isEmpty = BAJA;
 
             index = 0;
             break;

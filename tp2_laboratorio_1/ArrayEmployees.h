@@ -1,5 +1,6 @@
 #define LIBRE 0
 #define OCUPADO 1
+#define BAJA -2
 #include "Gets.h"
 #include "Validate.h"
 #define T 1000
