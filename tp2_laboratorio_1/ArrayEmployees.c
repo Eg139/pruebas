@@ -27,7 +27,7 @@ void menu()
         {
             option = GetChar("Desea hardcodear el codigo?\nS para si, N para no :");
         }
-        if(option == 's' || option =='S')
+        if(option =='S')
         {
             initEmployees(listEmployees, T);
             hardCodear(listEmployees);
@@ -45,12 +45,12 @@ void menu()
         }
 
     do{
-    opcion = menuUser("1. INGRESAR EMPLEADO\n2. MOSTRAR EMPLEADO\n3. INFORMAR\n4. ELIMINAR EMPLEADOS\n5. MODIFICAR EMPLEADOS\n6.SALIR\nELIJA UNA OPCION: ");
+    opcion = menuUser("1. ALTA DE EMPLEADOS\n2. MODIFICAR EMPLEADOS\n3. BAJA DE EMPLEADOS\n4. INFORMAR\n5.SALIR\nELIJA UNA OPCION: ");
     system("cls");
     while(opcion > 6 || opcion < 1)
     {
         printf("OPCION INCORRECTA, REINGRESE UNA OPCION VALIDA\n");
-        opcion = menuUser("1. INGRESAR EMPLEADO\n2. MOSTRAR EMPLEADO\n3. INFORMAR\n4. ELIMINAR EMPLEADOS\n5. MODIFICAR EMPLEADOS\n6.SALIR\nELIJA UNA OPCION: ");
+        opcion = menuUser("1. ALTA DE EMPLEADOS\n2. MODIFICAR EMPLEADOS\n3. BAJA DE EMPLEADOS\n4. INFORMAR\n5.SALIR\nELIJA UNA OPCION: ");
     }
     switch(opcion)
     {
@@ -69,28 +69,44 @@ void menu()
             }
 
         break;
-
         case 2:
-            if(employeeFlag == 1){
-            printf("LISTA DE EMPLEADOS!!!!!\n");
-            //fflush(stdin);
-            if(printEmployees(listEmployees, T)==0)
+            if(employeeFlag == 1)
                 {
-                printf("\nEMPLEADOS MOSTRADOS CON EXITO\n");
+            printEmployees(listEmployees, T);
+            if(modifyEmployee(listEmployees, T)==0)
+            {
+                printf("El empleado se modifico con exito\n");
+            }
+            else
+            {
+                printf("ATENCION!!!El Id no coincidio con ningun empleado o decidio salir sin modificar nada, volvera al menu anterior\n");
+            }
             }else{
-                printf("ERROR!!!!\n");
-            }
-            }
-            else{
                 printf("No se cargo un empleado, porfavor ingrese un empleado\n");
             }
-        system("pause");
-        system("cls");
-        break;
-        case 3:
+            system("pause");
+            system("cls");
+            break;
+            case 3:
             if(employeeFlag == 1){
+                if(removeEmployee(listEmployees, T)==0)
+                {
+                    printf("El empleado se elimino con exito\n");
+                }else
+                {
+                  printf("Error! No se pudo eliminar empleado, El Id estaba libre\n");
+                }
+            }else{
+                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
+            }
+            system("pause");
+            system("cls");
+            break;
+        case 4:
+            if(employeeFlag == 1){
+                printEmployees(listEmployees, T);
                 fflush(stdin);
-                opcion = menuUser("QUE DESEA INFORMAR:\n1. Listado de los empleados ordenados alfabeticamente por Apellido y Sector\n2. Total y promedio de los salarios, y cuantos empleados superan el salario promedio\nElija una opcion: ");
+                opcion = menuUser("\nQUE DESEA INFORMAR:\n1. Listado de los empleados ordenados alfabeticamente por Apellido y Sector\n2. Total y promedio de los salarios, y cuantos empleados superan el salario promedio\nElija una opcion: ");
                 while(opcion > 2 || opcion < 1)
                 {
                 printf("OPCION INCORRECTA, REINGRESE UNA OPCION VALIDA\n");
@@ -129,44 +145,11 @@ void menu()
                 system("pause");
                 system("cls");
         break;
-        case 4:
-            if(employeeFlag == 1){
-                if(removeEmployee(listEmployees, T)==0)
-                {
-                    printf("El empleado se elimino con exito\n");
-                }else
-                {
-                  printf("Error! No se pudo eliminar empleado, El Id estaba libre\n");
-                }
-            }else{
-                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
-            }
-            system("pause");
-            system("cls");
-            break;
         case 5:
-            if(employeeFlag == 1)
-                {
-            printEmployees(listEmployees, T);
-            if(modifyEmployee(listEmployees, T)==0)
-            {
-                printf("El empleado se modifico con exito\n");
-            }
-            else
-            {
-                printf("No modifico ningun dato\n");
-            }
-            }else{
-                printf("No se cargo un empleado, porfavor ingrese un empleado\n");
-            }
-            system("pause");
-            system("cls");
-            break;
-        case 6:
         break;
 
     }
-    }while(opcion != 6);
+    }while(opcion != 5);
 
 }
 
