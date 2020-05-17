@@ -134,7 +134,7 @@ void menu()
                             printf("\nSe pudo mostrar el salario\n");
                         }else
                         {
-                            printf("\ERROR! No se pudo mostrar el salario");
+                            printf("\nERROR! No se pudo mostrar el salario");
                         }
                     break;
                 }
