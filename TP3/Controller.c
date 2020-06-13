@@ -10,7 +10,7 @@
 int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 {
     FILE* employee;
-    int ret = 0;
+    int ret = -1;
 
     if(path != NULL && pArrayListEmployee != NULL)
     {
@@ -21,6 +21,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
         {
            ret = parser_EmployeeFromText(employee,pArrayListEmployee);
         }
+
     }
     return ret;
 }
